@@ -1,0 +1,1447 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reporte de Incidentes de Distribución</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f5f5f5;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+        
+        .header {
+            border-bottom: 4px solid #d32f2f;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .header h1 {
+            color: #d32f2f;
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+        
+        .header .subtitle {
+            color: #666;
+            font-size: 14px;
+        }
+        
+        .info-section {
+            background: #f9f9f9;
+            padding: 20px;
+            border-left: 4px solid #2196F3;
+            margin-bottom: 30px;
+        }
+        
+        .info-section h2 {
+            color: #2196F3;
+            font-size: 18px;
+            margin-bottom: 15px;
+        }
+        
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+        
+        .info-item {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .info-label {
+            font-weight: bold;
+            color: #555;
+            font-size: 12px;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+        }
+        
+        .info-value {
+            color: #333;
+            font-size: 15px;
+        }
+        
+        .incident-section {
+            margin-bottom: 40px;
+            border: 1px solid #e0e0e0;
+            padding: 25px;
+            border-radius: 8px;
+            page-break-inside: avoid;
+        }
+        
+        .incident-section h3 {
+            color: #d32f2f;
+            font-size: 20px;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #f5f5f5;
+        }
+        
+        .incident-details {
+            margin-bottom: 20px;
+        }
+        
+        .detail-row {
+            display: flex;
+            padding: 10px 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        
+        .detail-label {
+            font-weight: bold;
+            min-width: 180px;
+            color: #555;
+        }
+        
+        .detail-value {
+            color: #333;
+            flex: 1;
+        }
+        
+        .status-badge {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        
+        .status-critico {
+            background: #ffebee;
+            color: #c62828;
+        }
+        
+        .status-alto {
+            background: #fff3e0;
+            color: #e65100;
+        }
+        
+        .status-medio {
+            background: #fff9c4;
+            color: #f57f17;
+        }
+        
+        .actions-section {
+            background: #fff3e0;
+            border-left: 4px solid #ff9800;
+            padding: 20px;
+            margin-top: 20px;
+        }
+        
+        .actions-section h4 {
+            color: #e65100;
+            margin-bottom: 10px;
+        }
+        
+        .action-item {
+            padding: 8px 0;
+            color: #555;
+        }
+
+        .products-list {
+            background: #f9f9f9;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 15px;
+        }
+
+        .products-list ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .products-list li {
+            padding: 5px 0;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .products-list li:before {
+            content: "▪";
+            position: absolute;
+            left: 0;
+            color: #2196F3;
+        }
+
+        .summary-section {
+            background: #e3f2fd;
+            border-left: 4px solid #1976d2;
+            padding: 20px;
+            margin: 30px 0;
+        }
+
+        .summary-section h3 {
+            color: #1565c0;
+            margin-bottom: 15px;
+        }
+
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 15px;
+        }
+
+        .summary-card {
+            background: white;
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .summary-card h4 {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        .summary-card .number {
+            font-size: 32px;
+            font-weight: bold;
+            color: #1976d2;
+        }
+
+        .recommendations {
+            background: #ffebee;
+            border-left: 4px solid #c62828;
+            padding: 20px;
+            margin: 30px 0;
+        }
+
+        .recommendations h3 {
+            color: #c62828;
+            margin-bottom: 15px;
+        }
+
+        .recommendations ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .recommendations li {
+            padding: 8px 0;
+            padding-left: 25px;
+            position: relative;
+        }
+
+        .recommendations li:before {
+            content: "⚠";
+            position: absolute;
+            left: 0;
+            color: #c62828;
+        }
+        
+        .footer {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 2px solid #e0e0e0;
+            text-align: center;
+            color: #999;
+            font-size: 12px;
+        }
+        
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+            .container {
+                box-shadow: none;
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>REPORTE DE INCIDENTES DE DISTRIBUCIÓN</h1>
+            <div class="subtitle">Período: 02/10/2025 - 23/10/2025 | Documento generado: 13 de Octubre, 2025</div>
+        </div>
+        
+        <div class="info-section">
+            <h2>Resumen Ejecutivo</h2>
+            <div class="info-grid">
+                <div class="info-item">
+                    <span class="info-label">Total de Incidentes</span>
+                    <span class="info-value">22 incidentes registrados</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Período</span>
+                    <span class="info-value">02/10/2025 - 24/10/2025</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Puntos Afectados</span>
+                    <span class="info-value">8 salas/puntos de venta</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Nivel de Severidad</span>
+                    <span class="info-value"><span class="status-badge status-critico">CRÍTICO</span></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="summary-section">
+            <h3>Análisis de Incidentes por Categoría</h3>
+            <div class="summary-grid">
+                <div class="summary-card">
+                    <h4>Productos Vencidos/Fecha Corta</h4>
+                    <div class="number">5</div>
+                </div>
+                <div class="summary-card">
+                    <h4>Productos No Entregados</h4>
+                    <div class="number">6</div>
+                </div>
+                <div class="summary-card">
+                    <h4>Defectos de Calidad</h4>
+                    <div class="number">4</div>
+                </div>
+                <div class="summary-card">
+                    <h4>Errores de Facturación</h4>
+                    <div class="number">7</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- INCIDENTE 0 -->
+        <div class="incident-section">
+            <h3>Incidente #0: Problemas de Entrega y Producto Incorrecto - Hipermaxi</h3>
+            
+            <div class="incident-details">
+                <div class="detail-row">
+                    <span class="detail-label">Fecha:</span>
+                    <span class="detail-value">01/10/2025</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Puntos Afectados:</span>
+                    <span class="detail-value">Hipermaxi Pampa e Hipermaxi Villa</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Reportado por:</span>
+                    <span class="detail-value">Dilan</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Estado:</span>
+                    <span class="detail-value"><span class="status-badge status-alto">MÚLTIPLES INCIDENCIAS</span></span>
+                </div>
+            </div>
+
+            <div class="products-list">
+                <h4 style="color: #c62828; margin-bottom: 10px;">Problemas Identificados:</h4>
+                <ul>
+                    <li><strong>Hipermaxi Pampa:</strong> Retraso en entrega por problemas de transporte</li>
+                    <li><strong>Hipermaxi Villa:</strong> Producto incorrecto - Se solicitó Agua Micelar Hialurónico pero se entregó otra variante</li>
+                </ul>
+            </div>
+            
+            <div class="image-section" style="text-align: center;">
+                <img src="imagen/Imagen de WhatsApp 2025-10-01 a las 13.39.39_aed25730.jpg" alt="Orden de compra Hipermaxi Villa - Vista 1" style="width: 60%; height: auto; margin: 20px auto;">
+            </div>
+            
+            <div class="image-section" style="text-align: center;">
+                <img src="imagen/Imagen de WhatsApp 2025-10-01 a las 13.39.41_76fb5b4a.jpg" alt="Orden de compra Hipermaxi Villa - Vista 2" style="width: 60%; height: auto; margin: 20px auto;">
+            </div>
+            
+            <div class="actions-section">
+                <h4>Acciones Requeridas</h4>
+                <div class="action-item">⚠ Mejorar coordinación de transporte para evitar retrasos</div>
+                <div class="action-item">⚠ Verificar productos antes del despacho para asegurar variante correcta</div>
+                <div class="action-item">⚠ Reemplazar producto incorrecto en Hipermaxi Villa</div>
+            </div>
+        </div>
+
+        <!-- INCIDENTE 0B -->
+        <div class="incident-section">
+            <h3>Incidente #0B: Múltiples Problemas de Entrega - Salas Hipermaxi</h3>
+            
+            <div class="incident-details">
+                <div class="detail-row">
+                    <span class="detail-label">Fecha:</span>
+                    <span class="detail-value">02/10/2025</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Puntos Afectados:</span>
+                    <span class="detail-value">Hipermaxi Plan 3000, Hipermaxi Florida, Hipermaxi Radial 26</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Estado:</span>
+                    <span class="detail-value"><span class="status-badge status-critico">MÚLTIPLES PROBLEMAS CRÍTICOS</span></span>
+                </div>
+            </div>
+
+            <div class="products-list">
+                <h4 style="color: #c62828; margin-bottom: 10px;">Hipermaxi Plan 3000 - Productos No Entregados:</h4>
+                <ul>
+                    <li><strong>Tío Nacho Ac. Anti edad 415ml</strong> - 6 unidades - <strong>NO LLEGÓ</strong></li>
+                    <li><strong>Algabo Gel 475g fijación fuerte azul</strong> - 3 unidades - <strong>NO LLEGÓ</strong></li>
+                </ul>
+
+                <h4 style="color: #c62828; margin: 15px 0 10px 0;">Hipermaxi Florida - Error de Producto:</h4>
+                <ul>
+                    <li>Se rechazó 1 display control por error en facturación</li>
+                    <li>OC pide jabón Ultra Resistente de 120gr</li>
+                    <li>Se entregó jabón de 70gr</li>
+                </ul>
+
+                <h4 style="color: #c62828; margin: 15px 0 10px 0;">Hipermaxi Radial 26 - Error de Producto:</h4>
+                <ul>
+                    <li>Factura solicita Lexi Leche 120gr</li>
+                    <li>Se entregó producto de 70gr</li>
+                    <li><strong>Mercadería retenida con carta</strong></li>
+                </ul>
+            </div>
+            
+            <div class="image-section" style="text-align: center;">
+                <img src="imagen/Imagen de WhatsApp 2025-10-02 a las 08.47.12_5f01615d.jpg" alt="Productos faltantes Hipermaxi Plan 3000" style="width: 60%; height: auto; margin: 20px auto;">
+            </div>
+            
+            <div class="image-section" style="text-align: center;">
+                <img src="imagen/Imagen de WhatsApp 2025-10-02 a las 14.56.26_8f1d70f4.jpg" alt="Error de gramaje en productos entregados" style="width: 60%; height: auto; margin: 20px auto;">
+            </div>
+            
+            <div class="actions-section">
+                <h4>Acciones Requeridas</h4>
+                <div class="action-item">⚠ Envío inmediato de productos faltantes a Hipermaxi Plan 3000</div>
+                <div class="action-item">⚠ Reemplazo de productos con gramaje incorrecto en Florida y Radial 26</div>
+                <div class="action-item">⚠ Revisión de proceso de facturación para evitar errores de gramaje</div>
+                <div class="action-item">⚠ Atención urgente a mercadería retenida en Radial 26</div>
+                <div class="action-item">⚠ Implementar verificación doble de gramajes antes del despacho</div>
+            </div>
+        </div>
+
+        <!-- INCIDENTE 1 -->
+        <div class="incident-section">
+            <h3>Incidente #1: Producto Vencido - Teatrical Agua Micelar</h3>
+            
+            <div class="incident-details">
+                <div class="detail-row">
+                    <span class="detail-label">Sala/Punto:</span>
+                    <span class="detail-value">Fidalga Beni</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Fecha:</span>
+                    <span class="detail-value">Octubre 2025</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Producto:</span>
+                    <span class="detail-value">Teatrical Agua Micelar NO OLEOSA (Código: 3276000404)</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Lote:</span>
+                    <span class="detail-value">CAD: OCT/25</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Unidades Afectadas:</span>
+                    <span class="detail-value">2 unidades vencidas</span>
+                </div>
+                
+                <div class="image-section" style="text-align: center;">
+                    <img src="imagen/Imagen de WhatsApp 2025-10-09 a las 09.47.44_13ba003c.jpg" alt="Teatrical Agua Micelar vencida" style="width: 60%; height: auto; margin: 20px auto;">
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Estado:</span>
+                    <span class="detail-value"><span class="status-badge status-critico">PRODUCTO VENCIDO</span></span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Descripción:</span>
+                    <span class="detail-value">Ingresaron 2 unidades de Agua Micelar con fecha de caducidad OCT/25, producto ya vencido al momento de la recepción.</span>
+                </div>
+            </div>
+            
+            <div class="actions-section">
+                <h4>Acciones Requeridas</h4>
+                <div class="action-item">✓ Refacturar el pedido</div>
+                <div class="action-item">✓ Ajustar cantidad: Solo ingresarán 4 unidades válidas</div>
+                <div class="action-item">✓ Retirar las 2 unidades vencidas del inventario</div>
+                <div class="action-item">✓ Verificar lotes adicionales del mismo producto</div>
+            </div>
+        </div>
+
+        <!-- INCIDENTE 2 -->
+        <div class="incident-section">
+            <h3>Incidente #2: Producto con Fecha Corta - Tío Nacho</h3>
+            
+            <div class="incident-details">
+                <div class="detail-row">
+                    <span class="detail-label">Sala/Punto:</span>
+                    <span class="detail-value">Fidalga Macro</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Fecha de Entrega:</span>
+                    <span class="detail-value">Octubre 2025</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Producto:</span>
+                    <span class="detail-value">Tío Nacho (jabones/barras)</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Lote:</span>
+                    <span class="detail-value">3285000401</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Fecha de Vencimiento:</span>
+                    <span class="detail-value">OCT/25 (10/25)</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Cantidad:</span>
+                    <span class="detail-value">6 unidades</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Estado:</span>
+                    <span class="detail-value"><span class="status-badge status-critico">FECHA MUY CORTA</span></span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Observación Importante:</span>
+                    <span class="detail-value">Yael Salvatierra indica que <strong>Carlos Colher NO debe enviar productos con fecha corta</strong>. Se están presentando varios casos similares.</span>
+                </div>
+            </div>
+            
+            <div class="image-section" style="text-align: center;">
+                <img src="imagen/Imagen de WhatsApp 2025-10-09 a las 13.26.45_20fe88f5.jpg" alt="Producto Tío Nacho con fecha corta" style="width: 60%; height: auto; margin: 20px auto;">
+            </div>
+            
+            <div class="actions-section">
+                <h4>Acciones Requeridas</h4>
+                <div class="action-item">✓ Cambio urgente del producto</div>
+                <div class="action-item">✓ La señora recibió los productos pero requiere cambio inmediato</div>
+                <div class="action-item">✓ Supervisión a Carlos Colher para evitar envío de productos con fecha corta</div>
+            </div>
+        </div>
+
+        <!-- INCIDENTE 3 -->
+        <div class="incident-section">
+            <h3>Incidente #3: Código de Barra Incorrecto</h3>
+            
+            <div class="incident-details">
+                <div class="detail-row">
+                    <span class="detail-label">Cliente/Punto:</span>
+                    <span class="detail-value">Macro Parque Paragua</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Fecha:</span>
+                    <span class="detail-value">07/10/2025 (Santa Cruz)</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Producto:</span>
+                    <span class="detail-value">Protector Solar Facial c/base Medio FPS50 (Prot.Sunless Facial c/base Medio FPS50)</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Código en Factura:</span>
+                    <span class="detail-value">7896902212596</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Código Esperado (OC):</span>
+                    <span class="detail-value">30000694</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Cantidad:</span>
+                    <span class="detail-value">12 unidades</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Valor Total:</span>
+                    <span class="detail-value">1,044.00 Bs (87.00 Bs c/u)</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Estado:</span>
+                    <span class="detail-value"><span class="status-badge status-alto">DISCREPANCIA DE CÓDIGO</span></span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Problema:</span>
+                    <span class="detail-value">El código de barra del producto NO coincide con la orden de compra</span>
+                </div>
+            </div>
+            
+            <div class="image-section" style="text-align: center;">
+                <img src="imagen/Imagen de WhatsApp 2025-10-10 a las 11.19.23_6a483950.jpg" alt="Código de barra del producto - Vista 1" style="width: 60%; height: auto; margin: 20px auto;">
+            </div>
+            
+            <div class="image-section" style="text-align: center;">
+                <img src="imagen/Imagen de WhatsApp 2025-10-10 a las 11.19.53_03b24216.jpg" alt="Código de barra del producto - Vista 2" style="width: 60%; height: auto; margin: 20px auto;">
+            </div>
+            
+            <div class="actions-section">
+                <h4>Acciones Requeridas</h4>
+                <div class="action-item">✓ Verificar y corregir código de barra en sistema</div>
+                <div class="action-item">✓ Confirmar producto correcto entregado</div>
+                <div class="action-item">✓ Actualizar base de datos de productos</div>
+            </div>
+        </div>
+
+        <!-- INCIDENTE 4 -->
+        <div class="incident-section">
+            <h3>Incidente #4: Producto Facturado No Entregado</h3>
+            
+            <div class="incident-details">
+                <div class="detail-row">
+                    <span class="detail-label">Cliente/Punto:</span>
+                    <span class="detail-value">Macro Fidalga (Cotoca)</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Factura N°:</span>
+                    <span class="detail-value">16221</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">NIT:</span>
+                    <span class="detail-value">163328020</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Fecha de Emisión:</span>
+                    <span class="detail-value">08/10/2025 a las 3:33:48 PM</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Razón Social:</span>
+                    <span class="detail-value">Macro Fidalga Ltda.</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Producto NO Entregado:</span>
+                    <span class="detail-value">Tío Nacho Sh Henna 1 Litro (código 650240062067)</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Cantidad Facturada:</span>
+                    <span class="detail-value">3 unidades</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Monto Cobrado:</span>
+                    <span class="detail-value">245.76 Bs (81.92 Bs c/u)</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Total Factura:</span>
+                    <span class="detail-value">3,538.18 Bs</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Estado:</span>
+                    <span class="detail-value"><span class="status-badge status-critico">FACTURADO SIN ENTREGA</span></span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Problema:</span>
+                    <span class="detail-value">El producto está incluido en la factura pero NO se entregó físicamente al cliente</span>
+                </div>
+            </div>
+            
+            <div class="image-section" style="text-align: center;">
+                <img src="imagen/Imagen de WhatsApp 2025-10-10 a las 12.28.46_87fcf1ae.jpg" alt="Factura con producto no entregado" style="width: 60%; height: auto; margin: 20px auto;">
+            </div>
+            
+            <div class="actions-section">
+                <h4>Acciones Requeridas</h4>
+                <div class="action-item">✓ Refacturar sin incluir el producto no entregado</div>
+                <div class="action-item">✓ Ajustar cuenta del cliente</div>
+                <div class="action-item">✓ Investigar causa de la discrepancia</div>
+            </div>
+        </div>
+
+        <!-- INCIDENTE 5 -->
+        <div class="incident-section">
+            <h3>Incidente #5: Producto Defectuoso de Fábrica</h3>
+            
+            <div class="incident-details">
+                <div class="detail-row">
+                    <span class="detail-label">Cliente/Punto:</span>
+                    <span class="detail-value">Fidalga Cotoca</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Tipo de Producto:</span>
+                    <span class="detail-value">Envase con sistema flip-top (color blanco)</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Estado:</span>
+                    <span class="detail-value"><span class="status-badge status-alto">DEFECTO DE FÁBRICA</span></span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Problema:</span>
+                    <span class="detail-value">Producto en mal estado de fábrica con la tapa dañada. El sistema de cierre no funciona correctamente, tapa rota o defectuosa</span>
+                </div>
+            </div>
+            
+            <div class="image-section" style="text-align: center;">
+                <img src="imagen/Imagen de WhatsApp 2025-10-11 a las 08.56.09_51961a66.jpg" alt="Producto con tapa defectuosa" style="width: 60%; height: auto; margin: 20px auto;">
+            </div>
+            
+            <div class="actions-section">
+                <h4>Acciones Requeridas</h4>
+                <div class="action-item">✓ Reemplazo inmediato del producto defectuoso</div>
+                <div class="action-item">✓ Reporte a proveedor sobre defecto de manufactura</div>
+                <div class="action-item">✓ Inspección del lote completo</div>
+            </div>
+        </div>
+
+        <!-- INCIDENTE 6 -->
+        <div class="incident-section">
+            <h3>Incidente #6: Producto con Fecha Corta - Asepxia</h3>
+            
+            <div class="incident-details">
+                <div class="detail-row">
+                    <span class="detail-label">Producto:</span>
+                    <span class="detail-value">Asepxia Polvo Marfil</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Código de Barra:</span>
+                    <span class="detail-value">650240032446</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Lote:</span>
+                    <span class="detail-value">25421.AB101</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Fecha de Caducidad:</span>
+                    <span class="detail-value">01/2025</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Fecha de Entrega:</span>
+                    <span class="detail-value">11/10/2025</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Estado:</span>
+                    <span class="detail-value"><span class="status-badge status-critico">FECHA MUY CORTA</span></span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Problema:</span>
+                    <span class="detail-value">Producto entregado con solo 2-3 meses antes del vencimiento</span>
+                </div>
+            </div>
+            
+            <div class="image-section" style="text-align: center;">
+                <img src="imagen/Imagen de WhatsApp 2025-10-11 a las 09.04.16_674fcd4f.jpg" alt="Asepxia Polvo Marfil con fecha de vencimiento corta" style="width: 60%; height: auto; margin: 20px auto;">
+            </div>
+            
+            <div class="actions-section">
+                <h4>Acciones Requeridas</h4>
+                <div class="action-item">✓ Cambiar el producto para no tener que refacturar</div>
+                <div class="action-item">✓ Implementar política de fechas mínimas de vencimiento</div>
+            </div>
+        </div>
+
+        <!-- INCIDENTE 7 -->
+        <div class="incident-section">
+            <h3>Incidente #7: Seguimiento - Protector Solar Recuperado</h3>
+            
+            <div class="incident-details">
+                <div class="detail-row">
+                    <span class="detail-label">Receptor:</span>
+                    <span class="detail-value">Mirna</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Producto:</span>
+                    <span class="detail-value">Protector Solar Sunless Facial Medio (Farmax)</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Contexto:</span>
+                    <span class="detail-value">Esta caja corresponde al Protector Solar que NO ingresó en Makroparque Paragua debido a código de barra incorrecto (Incidente #3)</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Estado:</span>
+                    <span class="detail-value"><span class="status-badge status-medio">PRODUCTO RECUPERADO</span></span>
+                </div>
+            </div>
+            
+            <div class="image-section" style="text-align: center;">
+                <img src="imagen/Imagen de WhatsApp 2025-10-11 a las 09.04.38_99a40adf.jpg" alt="Protector Solar Sunless Facial Medio recuperado" style="width: 60%; height: auto; margin: 20px auto;">
+            </div>
+        </div>
+
+        <!-- INCIDENTE 8 -->
+        <div class="incident-section">
+            <h3>Incidente #8: Productos en Condiciones Insalubres</h3>
+            
+            <div class="incident-details">
+                <div class="detail-row">
+                    <span class="detail-label">Fecha:</span>
+                    <span class="detail-value">11/10/2025</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Receptor:</span>
+                    <span class="detail-value">Sr. José</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Punto:</span>
+                    <span class="detail-value">Fidalga Cotoca</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Producto:</span>
+                    <span class="detail-value">Ekko (código: 650240070037)</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Cantidad:</span>
+                    <span class="detail-value">1 Orden de Compra</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Estado:</span>
+                    <span class="detail-value"><span class="status-badge status-critico">CONDICIONES INSALUBRES</span></span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Problemas Detectados:</span>
+                    <span class="detail-value">
+                        <ul style="margin-top: 10px;">
+                            <li>Productos sucios con manchas</li>
+                            <li>Cajas carcomidas/dañadas por insectos</li>
+                            <li>Condiciones insalubres de almacenamiento o transporte</li>
+                            <li>Riesgo sanitario</li>
+                        </ul>
+                    </span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Observación Crítica:</span>
+                    <span class="detail-value" style="color: #c62828; font-weight: bold;">"Son muchas faltas en los pedidos ingresados. La verdad no está viendo un control en distribución. Por favor Leticia ver esas dificultades, son muy consecutivas"</span>
+                </div>
+            </div>
+            
+            <div class="image-section" style="text-align: center;">
+                <img src="imagen/Imagen de WhatsApp 2025-10-11 a las 09.16.00_fc24da6a.jpg" alt="Productos en condiciones insalubres - Vista 1" style="width: 60%; height: auto; margin: 20px auto;">
+            </div>
+            
+            <div class="image-section" style="text-align: center;">
+                <img src="imagen/Imagen de WhatsApp 2025-10-11 a las 09.17.59_c9bec5d8.jpg" alt="Productos en condiciones insalubres - Vista 2" style="width: 60%; height: auto; margin: 20px auto;">
+            </div>
+            
+            <div class="actions-section">
+                <h4>Acciones Urgentes Requeridas</h4>
+                <div class="action-item">⚠ Retiro inmediato de productos contaminados</div>
+                <div class="action-item">⚠ Inspección sanitaria de almacén y transporte</div>
+                <div class="action-item">⚠ Fumigación y limpieza profunda</div>
+                <div class="action-item">⚠ Implementación de protocolos de higiene</div>
+                <div class="action-item">⚠ Supervisión de Leticia Yapu requerida</div>
+            </div>
+        </div>
+
+        <!-- INCIDENTE 9 -->
+        <div class="incident-section">
+            <h3>Incidente #9: Devoluciones Procesadas</h3>
+            
+            <div class="incident-details">
+                <div class="detail-row">
+                    <span class="detail-label">Fecha:</span>
+                    <span class="detail-value">13/10/2025</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Receptor de Devoluciones:</span>
+                    <span class="detail-value">Mauricio</span>
+                </div>
+            </div>
+
+            <div class="products-list">
+                <h4 style="color: #555; margin-bottom: 10px;">Punto: Reyes</h4>
+                <ul>
+                    <li>1 producto con fecha corta</li>
+                    <li>1 producto con fecha vencida</li>
+                </ul>
+
+                <h4 style="color: #555; margin: 15px 0 10px 0;">Punto: TIA 24 de Septiembre</h4>
+                <ul>
+                    <li>1 producto de baja rotación</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- INCIDENTE 10 -->
+        <div class="incident-section">
+            <h3>Incidente #10: Faltantes en Entrega - TIA Ventura</h3>
+            
+            <div class="incident-details">
+                <div class="detail-row">
+                    <span class="detail-label">Fecha:</span>
+                    <span class="detail-value">20/10/2025</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Punto:</span>
+                    <span class="detail-value">TIA Ventura Mall</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Cliente:</span>
+                    <span class="detail-value">Elda Inversiones S.R.L (NIT: 186690025)</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Facturas:</span>
+                    <span class="detail-value">N° 16951 y N° 16953 (20/10/2025)</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Crédito - Vencimiento:</span>
+                    <span class="detail-value">04/12/2025</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Estado:</span>
+                    <span class="detail-value"><span class="status-badge status-critico">FALTANTES MÚLTIPLES</span></span>
+                </div>
+            </div>
+
+            <div class="products-list">
+                <h4 style="color: #c62828; margin-bottom: 10px;">Productos con Faltantes:</h4>
+                <ul>
+                    <li><strong>ALGABO Jabón Líquido Valv Crema Frutos 300ml</strong> - Facturado: 6 uni | Recibido: 5 uni | Faltante: 1 unidad</li>
+                    <li><strong>Discos de Algodón SEPTONA 70 pzas</strong> - Facturado: 12 uni | <strong>NO LLEGÓ</strong></li>
+                    <li><strong>Discos de Algodón SEPTONA 60+60 pzas</strong> - Facturado: 12 uni | <strong>NO LLEGÓ</strong></li>
+                    <li><strong>ALGABO gel 475g fijación fuerte azul</strong> - Facturado: 6 uni | <strong>NO LLEGÓ</strong></li>
+                </ul>
+            </div>
+            
+            <div class="image-section" style="text-align: center;">
+                <img src="imagen/Imagen de WhatsApp 2025-10-20 a las 14.06.41_f65bb048.jpg" alt="Productos faltantes TIA Ventura - Factura 1" style="width: 60%; height: auto; margin: 20px auto;">
+            </div>
+            
+            <div class="image-section" style="text-align: center;">
+                <img src="imagen/Imagen de WhatsApp 2025-10-20 a las 14.07.06_8a8b8a42.jpg" alt="Productos faltantes TIA Ventura - Factura 2" style="width: 60%; height: auto; margin: 20px auto;">
+            </div>
+            
+            <div class="image-section" style="text-align: center;">
+                <img src="imagen/Imagen de WhatsApp 2025-10-20 a las 14.07.38_320a4a2c.jpg" alt="Productos faltantes TIA Ventura - Detalle" style="width: 60%; height: auto; margin: 20px auto;">
+            </div>
+            
+            <div class="actions-section">
+                <h4>Acciones Requeridas</h4>
+                <div class="action-item">✓ Refacturar sin incluir los productos que no llegaron</div>
+                <div class="action-item">✓ Envío urgente de productos faltantes o crédito correspondiente</div>
+                <div class="action-item">✓ Verificación de proceso de picking y empaque</div>
+            </div>
+        </div>
+
+        <!-- INCIDENTE 11 -->
+        <div class="incident-section">
+            <h3>Incidente #11: Productos sin Etiquetas y Problemas Recurrentes - Blacutt</h3>
+            
+            <div class="incident-details">
+                <div class="detail-row">
+                    <span class="detail-label">Fecha:</span>
+                    <span class="detail-value">23/10/2025</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Distribuidor:</span>
+                    <span class="detail-value">Mauricio Justiniano Almac</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Reportado por:</span>
+                    <span class="detail-value">Yael Salvatierra Cortez</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Total Factura:</span>
+                    <span class="detail-value">12,660.62 Bs</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Crédito - Vencimiento:</span>
+                    <span class="detail-value">06/12/2025</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Estado:</span>
+                    <span class="detail-value"><span class="status-badge status-critico">MÚLTIPLES PROBLEMAS CRÍTICOS</span></span>
+                </div>
+            </div>
+
+            <div class="products-list">
+                <h4 style="color: #c62828; margin-bottom: 10px;">Problemas Identificados:</h4>
+                <ul>
+                    <li><strong>No entregó bien la mercadería en Blacutt</strong></li>
+                    <li><strong>Karla no dejó que se revise de acuerdo a la factura</strong></li>
+                    <li><strong>Dejó productos que no corresponden a la sala</strong></li>
+                    <li><strong>"Y es un lío sacarlo de ahí"</strong></li>
+                    <li><strong>Productos físicos SIN sticker de Pack</strong></li>
+                    <li><strong>Productos físicos SIN código de barra</strong></li>
+                    <li><strong>Productos con etiquetas mal aplicadas/torcidas</strong></li>
+                </ul>
+
+                <h4 style="color: #c62828; margin: 15px 0 10px 0;">Producto Principal con Problemas:</h4>
+                <ul>
+                    <li><strong>Tío Nacho Sh. Control Caspa 415ml</strong> (código 650240069352) - 12 unidades - 638.64 Bs</li>
+                    <li><strong>Algabo Foot Desodorante Antitranspirante para Pies</strong> - Lotes: 31790, VTD F10-27, VHU02/27</li>
+                    <li>Más de 2 productos de Desodorante para pies con etiquetas defectuosas</li>
+                </ul>
+            </div>
+            
+            <div class="image-section" style="text-align: center;">
+                <img src="imagen/Imagen de WhatsApp 2025-10-22 a las 13.37.16_6d90613b.jpg" alt="Productos sin etiquetas - Vista general" style="width: 60%; height: auto; margin: 20px auto;">
+            </div>
+            
+            <div class="image-section" style="text-align: center;">
+                <img src="imagen/Imagen de WhatsApp 2025-10-22 a las 13.37.42_9626b88c.jpg" alt="Productos con etiquetas defectuosas" style="width: 60%; height: auto; margin: 20px auto;">
+            </div>
+            
+            <div class="image-section" style="text-align: center;">
+                <img src="imagen/Imagen de WhatsApp 2025-10-22 a las 14.23.26_e1048a98.jpg" alt="Productos mal etiquetados - Detalle 1" style="width: 60%; height: auto; margin: 20px auto;">
+            </div>
+            
+            <div class="image-section" style="text-align: center;">
+                <img src="imagen/Imagen de WhatsApp 2025-10-22 a las 14.24.01_4c321348.jpg" alt="Productos mal etiquetados - Detalle 2" style="width: 60%; height: auto; margin: 20px auto;">
+            </div>
+            
+            <div class="image-section" style="text-align: center;">
+                <img src="imagen/Imagen de WhatsApp 2025-10-22 a las 15.55.44_9c609b26.jpg" alt="Desorganización en área de distribución" style="width: 60%; height: auto; margin: 20px auto;">
+            </div>
+
+            <div style="background: #ffebee; padding: 15px; border-left: 4px solid #c62828; margin-top: 15px;">
+                <p style="color: #c62828; font-weight: bold; margin-bottom: 10px;">⚠ OBSERVACIÓN CRÍTICA:</p>
+                <p style="color: #555;">"SEGUIMOS CON BLACUTT. Por favor, tener más cuidado"</p>
+                <p style="color: #555; margin-top: 10px;">Solicitud de apoyo de <strong>Leticia Yapu</strong> con su personal. Estado: A la espera de la recepción.</p>
+            </div>
+            
+            <div class="actions-section">
+                <h4>Acciones Urgentes Requeridas</h4>
+                <div class="action-item">⚠ Supervisión inmediata de entregas en Blacutt</div>
+                <div class="action-item">⚠ Corrección de productos sin etiquetas/códigos</div>
+                <div class="action-item">⚠ Retiro de productos que no corresponden a la sala</div>
+                <div class="action-item">⚠ Control de calidad de etiquetado</div>
+                <div class="action-item">⚠ Capacitación al distribuidor Mauricio Justiniano</div>
+                <div class="action-item">⚠ Intervención de Leticia Yapu requerida</div>
+            </div>
+        </div>
+
+        <!-- INCIDENTE 12 -->
+        <div class="incident-section">
+            <h3>Incidente #12: Rechazo Masivo de Productos - Fidalga Beni</h3>
+            
+            <div class="incident-details">
+                <div class="detail-row">
+                    <span class="detail-label">Fecha:</span>
+                    <span class="detail-value">23/10/2025</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Punto:</span>
+                    <span class="detail-value">Fidalga Beni</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Receptora:</span>
+                    <span class="detail-value">Karla</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Total Productos Rechazados:</span>
+                    <span class="detail-value">115 unidades (posteriormente recibidas)</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Estado:</span>
+                    <span class="detail-value"><span class="status-badge status-alto">FALTA DE COORDINACIÓN</span></span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Problema:</span>
+                    <span class="detail-value">No hubo coordinación previa con ejecutiva de ventas. La ejecutiva informó DESPUÉS de que el transportista ya se había retirado.</span>
+                </div>
+            </div>
+
+            <div class="products-list">
+                <h4 style="color: #555; margin-bottom: 10px;">Productos Rechazados Inicialmente (luego recibidos):</h4>
+                <ul>
+                    <li>Tío Nacho Arctic 500ml - 30 unidades</li>
+                    <li>Tío Nacho Sin Alcohol 500ml - 18 unidades</li>
+                    <li>Tío Nacho Avocado - 9 unidades</li>
+                    <li>Tío Nacho Romero - 9 unidades</li>
+                    <li>Tío Nacho Argán - 9 unidades</li>
+                    <li>Tío Nacho Ac. Argán - 9 unidades</li>
+                    <li>Tío Nacho Sh Herbolaria 415ml - 6 unidades</li>
+                    <li>Tío Nacho Henna 950ml - 3 unidades</li>
+                    <li>Tío Nacho Nachito - 6 unidades</li>
+                    <li>Tío Nacho Chicle 350ml - 6 unidades</li>
+                </ul>
+            </div>
+            
+            <div class="image-section" style="text-align: center;">
+                <img src="imagen/Imagen de WhatsApp 2025-10-23 a las 09.15.30_d3883265.jpg" alt="Productos rechazados en Fidalga Beni" style="width: 60%; height: auto; margin: 20px auto;">
+            </div>
+            
+            <div class="actions-section">
+                <h4>Acciones Requeridas</h4>
+                <div class="action-item">✓ Implementar protocolo de coordinación previa con ejecutivos de venta</div>
+                <div class="action-item">✓ Confirmar pedidos antes del despacho</div>
+                <div class="action-item">✓ Evitar devoluciones innecesarias</div>
+            </div>
+        </div>
+
+        <!-- INCIDENTE 13 -->
+        <div class="incident-section">
+            <h3>Incidente #13: Discrepancia en Caja Sellada</h3>
+            
+            <div class="incident-details">
+                <div class="detail-row">
+                    <span class="detail-label">Fecha:</span>
+                    <span class="detail-value">23/10/2025</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Punto:</span>
+                    <span class="detail-value">Macro Fidalga</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Contexto:</span>
+                    <span class="detail-value">Se realizó el cambio físico de los Tío Nacho Shampoo Henna (6 unidades)</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Producto:</span>
+                    <span class="detail-value">Colonetes SEPTONA Bolsa x 100 unid. (código 520141061033)</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Cantidad Facturada:</span>
+                    <span class="detail-value">24 unidades</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Cantidad en Caja Sellada:</span>
+                    <span class="detail-value">Solo 23 unidades</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Faltante:</span>
+                    <span class="detail-value">1 unidad</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Precio Unitario:</span>
+                    <span class="detail-value">10.80 Bs</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Estado:</span>
+                    <span class="detail-value"><span class="status-badge status-medio">ERROR DE EMPAQUE</span></span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Observación:</span>
+                    <span class="detail-value">La caja venía sellada de fábrica, indicando posible error de empaque en origen</span>
+                </div>
+            </div>
+            
+            <div class="image-section" style="text-align: center;">
+                <img src="imagen/Imagen de WhatsApp 2025-10-23 a las 11.58.52_7b8dd351.jpg" alt="Caja sellada con discrepancia en cantidad" style="width: 60%; height: auto; margin: 20px auto;">
+            </div>
+            
+            <div class="actions-section">
+                <h4>Acciones Requeridas</h4>
+                <div class="action-item">✓ Enviar 1 unidad faltante para no hacer refacturación</div>
+                <div class="action-item">✓ Reportar error de empaque a proveedor</div>
+                <div class="action-item">✓ Verificar otros lotes del mismo producto</div>
+            </div>
+        </div>
+
+        <!-- INCIDENTE 14 -->
+        <div class="incident-section">
+            <h3>Incidente #14: Productos No Entregados - Fidalga Cotoca</h3>
+            
+            <div class="incident-details">
+                <div class="detail-row">
+                    <span class="detail-label">Fecha:</span>
+                    <span class="detail-value">23/10/2025</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Punto:</span>
+                    <span class="detail-value">Fidalga Cotoca (Casa Matriz)</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Factura N°:</span>
+                    <span class="detail-value">17345</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">NIT:</span>
+                    <span class="detail-value">163328020</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Fecha de Emisión:</span>
+                    <span class="detail-value">23/10/2025 4:45:47 PM</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Total Factura:</span>
+                    <span class="detail-value">2,114.25 Bs</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Crédito - Vencimiento:</span>
+                    <span class="detail-value">22/11/2025</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Estado:</span>
+                    <span class="detail-value"><span class="status-badge status-critico">PRODUCTOS NO ENTREGADOS</span></span>
+                </div>
+            </div>
+
+            <div class="products-list">
+                <h4 style="color: #c62828; margin-bottom: 10px;">Productos Facturados pero NO Entregados:</h4>
+                <ul>
+                    <li><strong>Tío Nacho Ac. Henna 415ml</strong> (código 650240062070) - 6 unidades - 319.32 Bs - <strong>NO LLEGÓ</strong></li>
+                    <li><strong>Tío Nacho Sh. Control Caspa 415ml</strong> - <strong>NO ENVIARON</strong></li>
+                </ul>
+            </div>
+            
+            <div class="image-section" style="text-align: center;">
+                <img src="imagen/Imagen de WhatsApp 2025-10-24 a las 09.33.12_b611e7f6.jpg" alt="Productos no entregados en Fidalga Cotoca" style="width: 60%; height: auto; margin: 20px auto;">
+            </div>
+            
+            <div class="actions-section">
+                <h4>Acciones Requeridas</h4>
+                <div class="action-item">✓ Refacturar de acuerdo a la OC de F. Hamacas</div>
+                <div class="action-item">✓ Envío inmediato de productos faltantes</div>
+                <div class="action-item">✓ Ajuste de cuenta del cliente</div>
+            </div>
+        </div>
+
+        <!-- INCIDENTE 15 -->
+        <div class="incident-section">
+            <h3>Incidente #15: Producto No Entregado - Macro Fidalga</h3>
+            
+            <div class="incident-details">
+                <div class="detail-row">
+                    <span class="detail-label">Fecha:</span>
+                    <span class="detail-value">23/10/2025</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Punto:</span>
+                    <span class="detail-value">Macro Fidalga</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Producto:</span>
+                    <span class="detail-value">Tío Nacho Ac. Henna 415ml</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Estado:</span>
+                    <span class="detail-value"><span class="status-badge status-critico">NO ENTREGADO</span></span>
+                </div>
+            </div>
+            
+            <div class="image-section" style="text-align: center;">
+                <img src="imagen/Imagen de WhatsApp 2025-10-24 a las 10.13.05_df486aa7.jpg" alt="Producto Tío Nacho no entregado en Macro Fidalga" style="width: 60%; height: auto; margin: 20px auto;">
+            </div>
+            
+            <div class="actions-section">
+                <h4>Acciones Requeridas</h4>
+                <div class="action-item">✓ Refacturar</div>
+                <div class="action-item">✓ Envío del producto faltante</div>
+            </div>
+        </div>
+
+        <!-- INCIDENTE 16/10 -->
+        <div class="incident-section">
+            <h3>Incidente: 16/10/2025 - Hipermaxi Las Palmas (Discos SEPTONA)</h3>
+            
+            <div class="incident-details">
+                <div class="detail-row">
+                    <span class="detail-label">Fecha:</span>
+                    <span class="detail-value">16/10/2025</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Sala/Punto:</span>
+                    <span class="detail-value">Hipermaxi Las Palmas</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Reportado por:</span>
+                    <span class="detail-value">Recepción</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Estado:</span>
+                    <span class="detail-value"><span class="status-badge status-alto">FALTANTE PARCIAL</span></span>
+                </div>
+            </div>
+            
+            <div class="products-list">
+                <h4 style="color: #c62828; margin-bottom: 10px;">Producto con discrepancia:</h4>
+                <ul>
+                    <li><strong>Discos SEPTONA 70 pzas</strong> - Facturado: 24 unidades | Recibido: 20 unidades | <strong>Faltante: 4 unidades</strong></li>
+                </ul>
+            </div>
+
+            <div class="image-section" style="text-align: center;">
+                <img src="imagen/Imagen de WhatsApp 2025-10-16 a las 12.17.05_c61ab9e3.jpg" alt="Discos SEPTONA - Hipermaxi Las Palmas" style="width: 60%; height: auto; margin: 20px auto;">
+            </div>
+
+            <div class="actions-section">
+                <h4>Acciones Requeridas</h4>
+                <div class="action-item">✓ Envío urgente de 4 unidades faltantes a Hipermaxi Las Palmas</div>
+                <div class="action-item">✓ Investigar causa del faltante (picking, empaque o transporte)</div>
+                <div class="action-item">✓ No sancionar al personal de recepción sin investigación previa</div>
+                <div class="action-item">✓ Actualizar inventario y confirmar recepción con firma del cliente</div>
+            </div>
+        </div>
+
+        <!-- INCIDENTE 17/10 -->
+        <div class="incident-section">
+            <h3>Incidente: 17/10/2025 - Hipermaxi Pampa (Ítems no llegados / Productos sin fecha)</h3>
+            
+            <div class="incident-details">
+                <div class="detail-row">
+                    <span class="detail-label">Fecha:</span>
+                    <span class="detail-value">17/10/2025</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Sala/Punto:</span>
+                    <span class="detail-value">Hipermaxi Pampa</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Reportado por:</span>
+                    <span class="detail-value">Recepción</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Estado:</span>
+                    <span class="detail-value"><span class="status-badge status-critico">FALTANTES / RECHAZOS</span></span>
+                </div>
+            </div>
+
+            <div class="products-list">
+                <h4 style="color: #c62828; margin-bottom: 10px;">Problemas reportados:</h4>
+                <ul>
+                    <li>Ítem marcado en orden no llegó a Hipermaxi Pampa</li>
+                    <li>Ítem rechazado en Hipermaxi Pampa por estar <strong>sin fecha de vencimiento</strong></li>
+                </ul>
+            </div>
+
+            <div class="image-section" style="text-align: center;">
+                <img src="imagen/Imagen de WhatsApp 2025-10-17 a las 13.18.52_3edac382.jpg" alt="Ítem marcado no llegó - Hipermaxi Pampa" style="width: 60%; height: auto; margin: 20px auto;">
+            </div>
+
+            <div class="image-section" style="text-align: center;">
+                <img src="imagen/Imagen de WhatsApp 2025-10-17 a las 13.34.50_3e20ca9b.jpg" alt="Ítem rechazado por sin fecha - Hipermaxi Pampa (1)" style="width: 60%; height: auto; margin: 20px auto;">
+            </div>
+
+            <div class="image-section" style="text-align: center;">
+                <img src="imagen/Imagen de WhatsApp 2025-10-17 a las 13.34.51_5154f306.jpg" alt="Ítem rechazado por sin fecha - Hipermaxi Pampa (2)" style="width: 60%; height: auto; margin: 20px auto;">
+            </div>
+
+            <div class="actions-section">
+                <h4>Acciones Requeridas</h4>
+                <div class="action-item">✓ Verificar por qué el ítem marcado no fue incluido en la entrega</div>
+                <div class="action-item">✓ Coordinar recolección del ítem rechazado en Hipermaxi Pampa (pasar a recoger)</div>
+                <div class="action-item">✓ No aceptar productos sin fecha: revisar y reportar al proveedor</div>
+                <div class="action-item">✓ Actualizar registro de recepción y comunicación con cliente para evitar sanciones al personal</div>
+            </div>
+        </div>
+
+        <!-- INCIDENTE 21/10 -->
+        <div class="incident-section">
+            <h3>Incidente: 21/10/2025 - Hipermaxi Pampa (Productos rechazados / Faltantes)</h3>
+            
+            <div class="incident-details">
+                <div class="detail-row">
+                    <span class="detail-label">Fecha:</span>
+                    <span class="detail-value">21/10/2025</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Sala/Punto:</span>
+                    <span class="detail-value">Hipermaxi Pampa</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Estado:</span>
+                    <span class="detail-value"><span class="status-badge status-critico">RECHAZOS / NO ENTREGA</span></span>
+                </div>
+            </div>
+
+            <div class="products-list">
+                <h4 style="color: #c62828; margin-bottom: 10px;">Productos rechazados / no entregados:</h4>
+                <ul>
+                    <li>3 u. Teatrical Anti Arrugas 200 g - rechazadas (sin registro sanitario)</li>
+                    <li>4 u. Teatrical Humectante 100 g - rechazadas (sin registro sanitario)</li>
+                    <li>6 u. Teatrical Aclaradora 200 g - rechazadas (sin registro sanitario)</li>
+                    <li>No llegaron a sala: Ac anti edad Tío Nacho 415 ml; Labial Dr Selvy rojo</li>
+                </ul>
+            </div>
+
+            <div class="image-section" style="text-align: center;">
+                <img src="imagen/Imagen de WhatsApp 2025-10-21 a las 14.17.32_bbb76162.jpg" alt="Productos rechazados Hipermaxi Pampa" style="width: 60%; height: auto; margin: 20px auto;">
+            </div>
+
+            <div class="image-section" style="text-align: center;">
+                <img src="imagen/Imagen de WhatsApp 2025-10-21 a las 15.59.09_916f9990.jpg" alt="Ítem sin registro sanitario - Hipermaxi Pampa" style="width: 60%; height: auto; margin: 20px auto;">
+            </div>
+
+            <div class="actions-section">
+                <h4>Acciones Requeridas</h4>
+                <div class="action-item">✓ Reportar la falta de registro sanitario al proveedor y sistemas</div>
+                <div class="action-item">✓ Coordinar envío de los ítems faltantes (Ac anti edad, labial)</div>
+                <div class="action-item">✓ Recoger los ítems rechazados en Hipermaxi Pampa</div>
+                <div class="action-item">✓ Actualizar registro de recepción y evitar sanciones al personal sin investigación</div>
+            </div>
+        </div>
+
+        <!-- INCIDENTE 22/10 -->
+        <div class="incident-section">
+            <h3>Incidente: 22/10/2025 - Hipermaxi Villa / Hipermaxi Sur (Devolución - Producto incorrecto)</h3>
+            
+            <div class="incident-details">
+                <div class="detail-row">
+                    <span class="detail-label">Fecha:</span>
+                    <span class="detail-value">22/10/2025</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Sala/Punto:</span>
+                    <span class="detail-value">Hipermaxi Villa (rechazo horario) / Hipermaxi Sur (devolución)</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Problema:</span>
+                    <span class="detail-value">Por tema de horarios no aceptaron la mercadería en Hipermaxi Villa. En Hipermaxi Sur se devolvió un ítem: la orden pedía desodorante antibacterial pero se entregó el normal.</span>
+                </div>
+            </div>
+
+            <div class="image-section" style="text-align: center;">
+                <img src="imagen/Imagen de WhatsApp 2025-10-22 a las 14.04.55_c3579427.jpg" alt="No recepción Hipermaxi Villa - horario" style="width: 60%; height: auto; margin: 20px auto;">
+            </div>
+
+            <div class="actions-section">
+                <h4>Acciones Requeridas</h4>
+                <div class="action-item">✓ Coordinar nueva ventana horaria para entrega en Hipermaxi Villa</div>
+                <div class="action-item">✓ Gestionar recogida / reemplazo del ítem devuelto en Hipermaxi Sur</div>
+                <div class="action-item">✓ Revisar y confirmar que el artículo enviado coincide con la OC</div>
+            </div>
+        </div>
+
+        <!-- INCIDENTE 24/10 -->
+        <div class="incident-section">
+            <h3>Incidente: 24/10/2025 - Hiper Montero / Nota Tío Nacho 915 ml</h3>
+            
+            <div class="incident-details">
+                <div class="detail-row">
+                    <span class="detail-label">Fecha:</span>
+                    <span class="detail-value">24/10/2025</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Sala/Punto:</span>
+                    <span class="detail-value">Hiper Montero</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Observación:</span>
+                    <span class="detail-value">Para el pedido de mañana: del Tío Nacho 915 ml solo se están enviando 6 unidades con Fv: 03/26</span>
+                </div>
+            </div>
+
+            <div class="image-section" style="text-align: center;">
+                <img src="imagen/Imagen de WhatsApp 2025-10-24 a las 15.34.40_a14dca87.jpg" alt="Pedido Hiper Montero - nota" style="width: 60%; height: auto; margin: 20px auto;">
+            </div>
+
+            <div class="image-section" style="text-align: center;">
+                <img src="imagen/Imagen de WhatsApp 2025-10-24 a las 15.35.54_c1451896.jpg" alt="Tío Nacho 915 ml - 6 und con Fv 03/26" style="width: 60%; height: auto; margin: 20px auto;">
+            </div>
+
+            <div class="actions-section">
+                <h4>Acciones Requeridas</h4>
+                <div class="action-item">✓ Confirmar envío de 6 unidades informadas y su fecha de vencimiento</div>
+                <div class="action-item">✓ Comunicar al cliente/especificar si se requiere reemplazo por fecha corta</div>
+            </div>
+        </div>
+
+        <!-- RECOMENDACIONES -->
+        <div class="recommendations">
+            <h3>Recomendaciones y Acciones Correctivas Urgentes</h3>
+            <ul>
+                <li><strong>Control de Fechas:</strong> Implementar política estricta de NO envío de productos con menos de 6 meses de vida útil. Supervisar especialmente a Carlos Colher.</li>
+                <li><strong>Verificación de Entregas:</strong> Implementar checklist de verificación obligatorio antes de cada entrega, con firma del distribuidor y cliente.</li>
+                <li><strong>Condiciones Sanitarias:</strong> Inspección urgente de almacenes y vehículos de transporte. Fumigación y limpieza profunda inmediata.</li>
+                <li><strong>Control de Calidad:</strong> Revisión de productos antes del empaque. Verificar etiquetas, códigos de barra y condición física.</li>
+                <li><strong>Punto Blacutt:</strong> Intervención urgente requerida. Múltiples problemas recurrentes que requieren supervisión directa de Leticia Yapu.</li>
+                <li><strong>Capacitación:</strong> Entrenamiento urgente a distribuidores, especialmente Mauricio Justiniano Almac, sobre procedimientos correctos de entrega.</li>
+                <li><strong>Coordinación con Ventas:</strong> Establecer protocolo de comunicación obligatoria con ejecutivos de venta antes de cada despacho.</li>
+                <li><strong>Sistema de Códigos:</strong> Auditoría completa de códigos de barra en sistema vs. productos físicos.</li>
+                <li><strong>Proceso de Refacturación:</strong> Agilizar proceso para evitar demoras con clientes.</li>
+                <li><strong>Reporte a Proveedores:</strong> Notificar defectos de fábrica y errores de empaque detectados.</li>
+            </ul>
+        </div>
+
+        <!-- PIE DE PÁGINA -->
+        <div class="footer">
+            <p><strong>Reporte generado el 13 de Octubre de 2025</strong></p>
+            <p>Este documento contiene 15 incidentes críticos registrados en el período 02/10/2025 - 23/10/2025</p>
+            <p style="margin-top: 10px;">Para consultas o aclaraciones, contactar al Departamento de Distribución</p>
+            <p style="margin-top: 15px; color: #c62828; font-weight: bold;">DOCUMENTO CONFIDENCIAL - USO INTERNO</p>
+        </div>
+    </div>
+</body>
+</html>

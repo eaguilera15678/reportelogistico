@@ -1,0 +1,136 @@
+﻿{
+    "imagenes":  [
+                     {
+                         "archivo":  "Fidalga Blacut.jpeg",
+                         "titulo":  "Fidalga sur (Blacutt)",
+                         "descripcion":  "Fidalga sur (Blacutt). La factura corresponde a blacutt pero la OC corresponde a Fidalga Trompillo. Habido un error en facturación.",
+                         "fecha_captura":  "‎19/‎12/‎2025 ‏‎12:28"
+                     },
+                     {
+                         "archivo":  "Hipemaxi Montero.jpeg",
+                         "titulo":  "Hipermaxi Montero No llego 1 item el tetrical Aclaradora",
+                         "descripcion":  "Hipermaxi Montero No llego 1 item el tetrical Aclaradora",
+                         "fecha_captura":  "‎18/‎12/‎2025 ‏‎14:12"
+                     },
+                     {
+                         "archivo":  "Hipermaxi Beni x.jpg",
+                         "titulo":  "Hipermaxi Beni",
+                         "descripcion":  "Hipermaxi Beni: Se entregó H. Beni a Dilan.  Los Discos 70+ Quita esmalte fueron rechazados por sobre stock",
+                         "fecha_captura":  "‎8/‎12/‎2025 ‏‎12:11"
+                     },
+                     {
+                         "archivo":  "Hipermaxi Beni.jpeg",
+                         "titulo":  "Hipermaxi Beni mala facturación ya que en la orden piden cajita x3 ultra fino Tulipán Y facturaron ultra fino agranel rechazaron 36 Und de suerox mora azul  de esta orden ya que en otra orden están llegando120 Und",
+                         "descripcion":  "Hipermaxi Beni mala facturación ya que en la orden piden cajita x3 ultra fino Tulipán y facturaron ultra fino agranel rechazaron 36 Und de suerox mora azul  de esta orden ya que en otra orden están llegando 120 Und",
+                         "fecha_captura":  "‎12/‎12/‎2025 ‏‎13:39"
+                     },
+                     {
+                         "archivo":  "Hipermaxi Beni.png",
+                         "titulo":  "Hipermaxi Beni",
+                         "descripcion":  "Hipermaxi Beni: Se entregó H. Beni a Dilan.  Los Discos 70+ Quita esmalte fueron rechazados por sobre stock",
+                         "fecha_captura":  "‎8/‎12/‎2025 ‏‎12:11"
+                     },
+                     {
+                         "archivo":  "Hipermaxi Blacut.png",
+                         "titulo":  "Hipermaxi Blacutt",
+                         "descripcion":  "Hipermaxi Blacutt: Se rechazo 12 unidades pack toallas Number1  12 unidades repelente 100ml. Por sobre stock.",
+                         "fecha_captura":  "‎8/‎12/‎2025 ‏‎12:11"
+                     },
+                     {
+                         "archivo":  "Hipermaxi Centro.jpeg",
+                         "titulo":  "Hipermaxi centro Se está rechazando el pack Disco + Quita esmalte por sobre stock",
+                         "descripcion":  "Hipermaxi centro Se está rechazando el pack Disco + Quita esmalte por sobre stock",
+                         "fecha_captura":  "‎3/‎12/‎2025 ‏‎11:00"
+                     },
+                     {
+                         "archivo":  "Hipermaxi Pampa.jpeg",
+                         "titulo":  "Hipermaxi Pampa Solo llegaron 23 y esta facturado 24 Por favor tengamos más cuidado ya que el supermercado piensa que le estamos robando",
+                         "descripcion":  "Hipermaxi Pampa Solo llegaron 23 y esta facturado 24 Por favor tengamos más cuidado ya que el supermercado piensa que le estamos robando.",
+                         "fecha_captura":  "‎3/‎12/‎2025 ‏‎14:55"
+                     },
+                     {
+                         "archivo":  "Hipermaxi Plan.png",
+                         "titulo":  "Hipermaxi Plan",
+                         "descripcion":  "Hipermaxi Plan: Se entregó  a Juan José.  12 unidades de discos70 + quita esmalte fueron rechazados. Por Sobre Stock",
+                         "fecha_captura":  "‎3/‎12/‎2025 ‏‎08:11"
+                     },
+                     {
+                         "archivo":  "Hipermaxi Villa.jpeg",
+                         "titulo":  "Hipermaxi Villa Llegó está unidad Vacia",
+                         "descripcion":  "Hipermaxi Villa Llegó está unidad Vacia",
+                         "fecha_captura":  "‎5/‎12/‎2025 ‏‎14:11"
+                     },
+                     {
+                         "archivo":  "Mercado Abasto Antiguo.jpg",
+                         "titulo":  "Del mercado Abasto Antiguo,  Yoselin Zuñiga con el puesto cerrado,  los demás clientes recibieron conforme",
+                         "descripcion":  "Del mercado Abasto Antiguo,  Yoselin Zuñiga con el puesto cerrado,  los demás clientes recibieron conforme.",
+                         "fecha_captura":  "‎15/‎12/‎2025 ‏‎12:53"
+                     },
+                     {
+                         "archivo":  "Mercado la Ramada.jpg",
+                         "titulo":  "Mercado Antigua Ramada",
+                         "descripcion":  "Mercado Antigua Ramada: Fabiana Perez,  Quedó pendiente para mañana 1 factura nó le alcanzó el dinero  Yeny Lopez,  Nó recibió dos de sus facturas nó le alcanzó el dinero",
+                         "fecha_captura":  "‎18/‎12/‎2025 ‏‎18:00"
+                     },
+                     {
+                         "archivo":  "Mercado Mutualista.jpg",
+                         "titulo":  "Mercado Mutualista  No recibieron sus pedidos",
+                         "descripcion":  "Mercado Mutualista  No recibieron sus pedidos: *María Gómez (indicó que los protectores faciales de 40 gr estaban muy caros) *Martha Villca (indicó que había pedido más productos, y no tenía descuento).",
+                         "fecha_captura":  "‎19/‎12/‎2025 ‏‎21:11"
+                     },
+                     {
+                         "archivo":  "Mercado Mutualista_v1.jpg",
+                         "titulo":  "Mercado Mutualista  Jorge Ramos  Solo le alcanzó el efectivo para recibir una de sus dos facturas, el otro cliente recibió conforme",
+                         "descripcion":  "Mercado Mutualista  Jorge Ramos  Solo le alcanzó el efectivo para recibir una de sus dos facturas, el otro cliente recibió conforme.",
+                         "fecha_captura":  "‎20/‎12/‎2025 ‏‎14:18"
+                     },
+                     {
+                         "archivo":  "Mercado Nueva Ramada.jpg",
+                         "titulo":  "Mercado Nueva Ramada,  María Yucra  Sin dinero,",
+                         "descripcion":  "Mercado Nueva Ramada,  María Yucra  Sin dinero,",
+                         "fecha_captura":  "‎18/‎12/‎2025 ‏‎16:05"
+                     },
+                     {
+                         "archivo":  "Mercado Primavera.jpg",
+                         "titulo":  "Del mercado Primavera,  Adela Mejia,  está de viaje,  los demás pedidos se entregaron conforme",
+                         "descripcion":  "Del mercado Primavera,  Adela Mejia,  está de viaje,  los demás pedidos se entregaron conforme.",
+                         "fecha_captura":  "‎14/‎12/‎2025 ‏‎11:00"
+                     },
+                     {
+                         "archivo":  "Mercado Satelite.jpg",
+                         "titulo":  "Mercado Satélite;  Wilson Ramos,  Rechazó su pedido por descuento, los demás pedidos entregados Conforme",
+                         "descripcion":  "Mercado Satélite;  Wilson Ramos,  Rechazó su pedido por descuento, los demás pedidos entregados Conforme",
+                         "fecha_captura":  "‎11/‎12/‎2025 ‏‎16:01"
+                     },
+                     {
+                         "archivo":  "Mercado Satelite_v1.jpg",
+                         "titulo":  "Mercado Satélite;   Hilda Mamani,  Indico que los Nova que pidió eran de 75 gr pero le cargaron al Dual de 150 gr",
+                         "descripcion":  "Mercado Satélite;   Hilda Mamani,  Indico que los Nova que pidió eran de 75 gr pero le cargaron al Dual de 150 gr.  Los demás pedidos fueron entregados conforme.",
+                         "fecha_captura":  "‎18/‎12/‎2025 ‏‎16:01"
+                     },
+                     {
+                         "archivo":  "MERCADO VILLA PRIMERO DE MAYO.jpg",
+                         "titulo":  "Juan Choque",
+                         "descripcion":  "Juan Choque: Mercado Villa 1ro. De Mayo; Juana Choque, sin dinero el otro pedido entregado conforme",
+                         "fecha_captura":  "‎8/‎12/‎2025 ‏‎15:33"
+                     },
+                     {
+                         "archivo":  "MERCADO VILLA PRIMERO DE MAYO_v1.jpg",
+                         "titulo":  "mercado Villa 1ro de Mayo,  Sandivel Fernández  sin dinero,  los demás pedidos se entregaron conforme",
+                         "descripcion":  "Mercado Villa 1ro de Mayo,  Sandivel Fernández  sin dinero,  los demás pedidos se entregaron conforme.",
+                         "fecha_captura":  "‎23/‎12/‎2025 ‏‎15:33"
+                     },
+                     {
+                         "archivo":  "Navamed.png",
+                         "titulo":  "Navamed",
+                         "descripcion":  "Navamed: Por el horario nó se entregó",
+                         "fecha_captura":  "‎9/‎12/‎2025 ‏‎18:12"
+                     },
+                     {
+                         "archivo":  "photo_2025-12-08.jpg",
+                         "titulo":  "Makro Parque",
+                         "descripcion":  "Makro Parque: Se entrego Makro Parque a Mirna. La siguiente factura no fue entregada ya que los productos tendrian que haber llegado 2x1. Y llegaron por el unidades.",
+                         "fecha_captura":  "‎8/‎12/‎2025 ‏‎08:34"
+                     }
+                 ]
+}

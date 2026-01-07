@@ -179,33 +179,6 @@
             transform: translateY(0);
         }
         
-        .copy-button {
-            position: fixed;
-            top: 70px;
-            right: 20px;
-            background: #28a745;
-            color: white;
-            border: none;
-            padding: 12px 24px;
-            border-radius: 6px;
-            font-size: 14px;
-            font-weight: 600;
-            cursor: pointer;
-            box-shadow: 0 4px 12px rgba(40, 167, 69, 0.3);
-            transition: all 0.3s ease;
-            z-index: 1000;
-        }
-        
-        .copy-button:hover {
-            background: #218838;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 16px rgba(40, 167, 69, 0.4);
-        }
-        
-        .copy-button:active {
-            transform: translateY(0);
-        }
-        
         @media print {
             body {
                 background: white;
@@ -227,9 +200,6 @@
             .pdf-button {
                 display: none;
             }
-            .copy-button {
-                display: none;
-            }
             .photo-image {
                 max-height: 600px;
             }
@@ -239,7 +209,6 @@
 </head>
 <body>
     <button class="pdf-button" onclick="generarPDF()">📄 Generar PDF</button>
-    <button class="copy-button" onclick="copiarParaOutlook()">📧 Copiar para Email</button>
     <div class="container">
         <!-- HEADER -->
         <div class="header">
@@ -259,118 +228,6 @@
     </div>
 
     <script>
-        async function copiarParaOutlook() {
-            const button = document.querySelector('.copy-button');
-            button.textContent = '⏳ Copiando...';
-            button.disabled = true;
-
-            try {
-                const gallery = document.getElementById('gallery');
-                const photoCards = gallery.querySelectorAll('.photo-card');
-                
-                // Crear contenedor temporal
-                const tempDiv = document.createElement('div');
-                tempDiv.style.position = 'absolute';
-                tempDiv.style.left = '-9999px';
-                document.body.appendChild(tempDiv);
-                
-                let emailHTML = `
-                    <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #f5f7fa; padding: 30px; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
-                        <tr>
-                            <td align="center">
-                                <table width="900" cellpadding="0" cellspacing="0" style="background-color: white; border-radius: 10px;">
-                                    <tr>
-                                        <td style="padding: 50px;">
-                                            <table width="100%" cellpadding="0" cellspacing="0" style="border-bottom: 3px solid #0052cc; padding-bottom: 30px; margin-bottom: 50px;">
-                                                <tr>
-                                                    <td align="center">
-                                                        <h1 style="color: #0052cc; font-size: 36px; margin: 0 0 10px 0; font-weight: 700;">📦 REPORTE LOGÍSTICO DICIEMBRE 2025</h1>
-                                                        <p style="color: #5a6c7d; font-size: 15px; font-weight: 500; margin: 0;">Álbum Fotográfico de Distribución</p>
-                                                    </td>
-                                                </tr>
-                                            </table>
-                `;
-
-                for (const card of photoCards) {
-                    const filename = card.querySelector('.photo-filename')?.textContent || '';
-                    const img = card.querySelector('.photo-image');
-                    const fecha = card.querySelector('.meta-item')?.textContent?.replace('📅', '').trim() || '';
-                    const descripcion = card.querySelector('.photo-comment')?.textContent || '';
-                    
-                    // Convertir imagen a base64
-                    const canvas = document.createElement('canvas');
-                    const ctx = canvas.getContext('2d');
-                    canvas.width = img.naturalWidth;
-                    canvas.height = img.naturalHeight;
-                    ctx.drawImage(img, 0, 0);
-                    const base64 = canvas.toDataURL('image/jpeg', 0.9);
-
-                    emailHTML += `
-                            <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #f8f9fa; border-radius: 8px; margin-bottom: 30px;">
-                                <tr>
-                                    <td style="background-color: #0052cc; color: white; padding: 12px 20px; font-size: 25px; font-weight: 600; text-align: center;">${filename}</td>
-                                </tr>
-                                <tr>
-                                    <td align="center" style="background-color: #e9ecef;">
-                                        <img src="${base64}" width="840" style="display: block; max-width: 100%; height: auto;" alt="${filename}">
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td style="padding: 30px; background-color: white;">
-                                        <p style="font-size: 13px; color: #6c757d; margin: 0 0 20px 0;">
-                                            <span style="color: #0052cc; font-weight: bold;">📅</span> ${fecha}
-                                        </p>
-                                        ${descripcion ? `<div style="color: #495057; font-size: 14px; line-height: 1.8; padding: 15px; background-color: #f0f4ff; border-left: 4px solid #0052cc; border-radius: 4px; font-style: italic; margin: 0;">${descripcion}</div>` : ''}
-                                    </td>
-                                </tr>
-                            </table>
-                    `;
-                }
-
-                emailHTML += `
-                                            <table width="100%" cellpadding="0" cellspacing="0" style="margin-top: 60px; padding-top: 30px; border-top: 2px solid #e9ecef;">
-                                                <tr>
-                                                    <td align="center" style="color: #6c757d; font-size: 12px;">
-                                                        <strong style="color: #0052cc;">Reporte Logístico - Diciembre 2025</strong><br>
-                                                        Colher Bolivia | Distribución y Posicionamiento de Marcas<br>
-                                                        Documento generado: 06 de Enero, 2026
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                        </td>
-                                    </tr>
-                                </table>
-                            </td>
-                        </tr>
-                    </table>
-                `;
-
-                tempDiv.innerHTML = emailHTML;
-                
-                // Seleccionar y copiar
-                const range = document.createRange();
-                range.selectNodeContents(tempDiv);
-                const selection = window.getSelection();
-                selection.removeAllRanges();
-                selection.addRange(range);
-                
-                document.execCommand('copy');
-                
-                selection.removeAllRanges();
-                document.body.removeChild(tempDiv);
-                
-                button.textContent = '✅ ¡Copiado!';
-                setTimeout(() => {
-                    button.textContent = '📧 Copiar para Email';
-                    button.disabled = false;
-                }, 2000);
-            } catch (err) {
-                console.error('Error copiando:', err);
-                button.textContent = '❌ Error - Reintentar';
-                button.disabled = false;
-            }
-        }
-
         function generarPDF() {
             const button = document.querySelector('.pdf-button');
             button.textContent = '⏳ Generando PDF...';
